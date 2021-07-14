@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+	$( function() {    
+		$( "#dialog" ).dialog({
+			autoOpen: false,
+			width: 170,
+			dialogClass: 'dialog'
+		});		
+		$('#pildyti').click(function() {
+	        $(dialog).dialog('open');
+	        return false;
+	    });
+		$('#uzdaryti').click(function() {
+	        $(dialog).dialog('close');
+	        return false;
+	    });
+		$( function() {
+		    $( document ).tooltip();
+		  } );
+	});
+  </script>
+<title>Grupe</title>
+</head>
+<style>
+	h1 {
+		text-align: center;
+	}
+	td {
+		background-color: Cornsilk;
+		border: 2px solid black;
+		padding: 4px 7px;
+	}
+	.ui-widget-content.dialog {
+   		background: #F9F9F9;
+   		border: 1px solid #90d93f;
+   		color: #222222;
+	}
+	.ui-dialog-titlebar-close {
+   		visibility: hidden;
+	}
+	.tooltip {
+		position: relative;
+		display: inline-block;
+		border-bottom: 1px dotted black;
+	}
+	.tooltip .tooltiptext {
+		visibility: hidden;
+		width: 120px;
+		background-color: #555;
+		color: #fff;
+		text-align: center;
+		border-radius: 6px;
+		padding: 5px 0;
+		position: absolute;
+		z-index: 1;
+		bottom: 125%;
+		left: 50%;
+		margin-left: -60px;
+		opacity: 0;
+		transition: opacity 0.3s;
+	}
+		
+	.tooltip .tooltiptext::after {
+		content: "";
+		position: absolute;
+		top: 100%;
+		left: 50%;
+		margin-left: -5px;
+		border-width: 5px;
+		border-style: solid;
+		border-color: #555 transparent transparent transparent;
+	}
+		
+	.tooltip:hover .tooltiptext {
+		visibility: visible;
+		opacity: 1;
+	}
+	label {
+    	display: inline-block;
+   		width: 5em;
+  }
+</style>
+<body>
+	<h1>Grupes ivedimas</h1>
+	<h2 class="tooltip">Esamos grupes<span class="tooltiptext">Tooltip text</span></h2>
+	<table>
+		<tr>
+			<td style="font-weight:bold">Pavadinimas</td>
+			<td style="font-weight:bold">Ikurimo metai</td>
+			<td style="font-weight:bold">Nariu skaicius</td>
+			<td style="font-weight:bold">Albumu skaicius</td>
+		</tr>
+		<tr th:each="grupe : ${grupes}">
+			<td th:text="${grupe.getPavadinimas}"></td>			
+			<td th:text="${grupe.getIkurimas}"></td>			
+			<td th:text="${grupe.getNariai}"></td>
+			<td th:title="${grupe.albumuPavadinimai}" th:text="${grupe.getAlbumas.size()}"></td>
+			<!--  <td th:title="${grupe.}" th:text="${grupe.getAlbumas.size()}"></td> -->
+		</tr>
+	</table>
+	
+	<div id="dialog" title="Grupe">	
+	<form method="POST" action="" >
+	
+		<label for="pavadinimas">Pavadinimas:</label><br>
+		<input type="text" placeholder="Pavadinimas" id="pavadinimas" name="pavadinimas" value="" required><br>
+		<br>
+		<label for="ikurimas">Ikurimo metai:</label><br>
+		<input type="text" placeholder="Ikurimo metai" id="ikurimas" name="ikurimas" value="" required><br>
+		<br>
+		<label for="nariai">Nariu kiekis:</label><br>
+		<input type="text" placeholder="Nariu kiekis" id="nariai" name="nariai" value="" required><br>
+		<br>
+		<input type="submit" id="send" name="send" value="Siųsti">
+		<button id="uzdaryti">Uzdaryti</button>			
+	</form>
+	</div>
+		<button id="pildyti">Pildyti</button>	
+</body>
+</html>

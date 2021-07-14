@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {    
+	$( "#dialog" ).dialog({
+		autoOpen: false,
+		width: 170,
+		dialogClass: 'dialog'
+	});		
+	$('#pildyti').click(function() {
+        $(dialog).dialog('open');
+        return false;
+    });
+});
+</script>
+<style>
+	h1 {
+		text-align: center;
+	}
+	td {
+		background-color: Cornsilk;
+		border: 2px solid black;
+		padding: 4px 7px;
+	}
+	.ui-widget-content.dialog {
+   		background: #F9F9F9;
+   		border: 1px solid #90d93f;
+   		color: #222222;
+	}
+</style>
+<title>Albumai</title>
+</head>
+<body>
+	<h1 style="text-allign: center;">Albumo ivedimas</h1>
+	<table>
+		<tr>
+			<td style="font-weight:bold">Pavadinimas</td>
+			<td style="font-weight:bold">Isleidimo metai</td>
+			<td style="font-weight:bold">Kuriniu kiekis</td>
+			<td style="font-weight:bold">Albumo ilgis</td>
+		</tr>
+		<tr th:each="albumas : ${albumai}">
+			<td th:text="${albumas.getPavadinimas()}"></td>
+			<td th:text="${albumas.getIsleidimo_metai()}"></td>
+			<td th:text="${albumas.getKuriniu_kiekis()}"></td>
+			<td th:text="${albumas.getAlbumo_ilgis()}"></td>			
+		</tr>
+	</table>
+	<div id="dialog">
+	<form method="POST" action="" >
+	
+		<label for="pavadinimas">Pavadinimas:</label><br>
+		<input type="text" placeholder="Pavadinimas" id="pavadinimas" name="pavadinimas" value="" required><br>
+		<br>
+		<label for="isleidimo">Isleidimo data:</label><br>
+		<input type="text" placeholder="Isleidimo data" id="isleidimo_metai" name="isleidimo_metai" value="" required><br>
+		<br>
+		<label for="kuriniu_kiekis">Kuriniu kiekis:</label><br>
+		<input type="text" placeholder="Kuriniu kiekis" id="kuriniu_kiekis" name="kuriniu_kiekis" value="" required><br>
+		<br>
+		<label for="albumo_ilgis">Albumo ilgis:</label><br>
+		<input type="text" placeholder="Albumo ilgis" id="albumo_ilgis" name="albumo_ilgis" value="" required><br>
+		<br>
+		<input type="submit" id="send" name="send" value="Siųsti">
+		</form>
+		</div>
+		<button id="pildyti">Pildyti</button>	
+		<table>
+				<tr th:each="albumas : ${klaidos}">
+					<td> th:text="${albumas.getklaidos}"</td>
+				</tr>
+		</table>		
+</body>
+</html>
